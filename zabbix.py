@@ -4,9 +4,9 @@ from pyzabbix.api import ZabbixAPI
 # Interface Operational status: 1 is up, 2 is down
 
 class Zabbix:
-    def __init__(self):
+    def __init__(self, zabbix_url):
         # Create ZabbixAPI class instance
-        self.zapi = ZabbixAPI(server='http://183.6.42.206:3031')
+        self.zapi = ZabbixAPI(server=zabbix_url)
         self.zapi.login(api_token='853c722b91fc6747784fcea0aa02f51abccfc1961be12d49f82065866740ab92')
         self.inventory = {host['host']: host['hostid'] for host in self.zapi.host.get(monitored_hosts=1, output='extend')}
         self.data = {}
