@@ -18,7 +18,7 @@ logging.info('SAGA Manager Running!')
 def http_msg(url, device_name:str, datas:dict):
     payload = {'device_name': device_name, 
                'datas': datas}
-    response = requests.post(url, data=payload)
+    response = requests.post(url, json=payload)
     response.raise_for_status()
 
 
@@ -35,7 +35,9 @@ def main():
 
             if device.data[if_name] != 1 and issue:
                 print('G0/22 Fail')
-                http_msg(sage_assistant+'/datas', device_name, {if_name.split('(')[0]:device.data[if_name]})
+                issue_data = {'if_name': if_name.split('(')[0],
+                              'value': device.data[if_name]}
+                http_msg(sage_assistant+'/datas', device_name, issue_data)
                 issue = False
             elif device.data[if_name] == 1:
                 issue = True
