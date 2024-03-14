@@ -23,6 +23,7 @@ def http_msg(url, device_name:str, datas:dict):
 
 
 def main():
+    issue = True
     device_name = 'GZ Office CoreSW'
     if_name = 'Interface Gi0/22(): Operational status'
     try:
@@ -32,9 +33,12 @@ def main():
             device.collector_host(device_name, start_time)
             print(device.data)
 
-            if device.data and device.data[if_name] != 1:
+            if device.data[if_name] != 1 and issue:
                 print('G0/22 Fail')
                 http_msg(sage_assistant+'/datas', device_name, {if_name.split('(')[0]:device.data[if_name]})
+                issue = False
+            elif device.data[if_name] == 1:
+                issue = True
             http_msg(saga_insight+'/datas', device.data)
 
             start_time = time.time()
