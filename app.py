@@ -4,8 +4,6 @@ import os
 import logging
 from zabbix import Zabbix
 
-device_name = 'GZ Office CoreSW'
-if_name = 'Interface Gi0/22(): Operational status'
 sage_assistant = 'http://127.0.0.1:5001/api'
 saga_insight = 'http://127.0.0.1:5002/api'
 zabbix_ip = 'http://10.1.1.81:3031'
@@ -17,13 +15,16 @@ logging.basicConfig(filename='log.txt',
 logging.info('SAGA Manager Running!')
 
 
-def http_msg(url, datas: dict):
-    payload = {'datas': datas}
+def http_msg(url, device_name:str, datas:dict):
+    payload = {'device_name': device_name, 
+               'datas': datas}
     response = requests.post(url, data=payload)
     response.raise_for_status()
 
 
 def main():
+    device_name = 'GZ Office CoreSW'
+    if_name = 'Interface Gi0/22(): Operational status'
     try:
         start_time = time.time()
         while True:
@@ -33,7 +34,7 @@ def main():
 
             if device.data and device.data[if_name] != 1:
                 print('G0/22 Fail')
-                http_msg(sage_assistant+'/datas', {if_name:device.data[if_name]})
+                http_msg(sage_assistant+'/datas', device_name, {if_name:device.data[if_name]})
             http_msg(saga_insight+'/datas', device.data)
 
             start_time = time.time()
