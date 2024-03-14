@@ -34,7 +34,7 @@ def main():
 
             if device.data and device.data[if_name] != 1:
                 print('G0/22 Fail')
-                http_msg(sage_assistant+'/datas', device_name, {if_name:device.data[if_name]})
+                http_msg(sage_assistant+'/datas', device_name, {if_name.split('(')[0]:device.data[if_name]})
             http_msg(saga_insight+'/datas', device.data)
 
             start_time = time.time()
