@@ -4,8 +4,8 @@ import os
 import logging
 from zabbix import Zabbix
 
-sage_assistant = 'http://127.0.0.1:5001/api'
-saga_insight = 'http://127.0.0.1:5002/api'
+sage_assistant = 'http://10.1.1.57:5001/api'
+saga_insight = 'http://10.1.1.57:5002/api'
 zabbix_ip = 'http://10.1.1.57:3031'
 
 logging.basicConfig(filename='log.txt',
@@ -27,7 +27,7 @@ def main():
     issue = True
     device_name = 'GZ Office CoreSW'
     if_name = 'Interface Gi0/22(): Operational status'
-    start_time = time.time()-3600*24
+    start_time = time.time()
     while True:
         device = Zabbix(zabbix_ip)
         device.collector_host(device_name, start_time)
@@ -42,7 +42,8 @@ def main():
             issue = False
         else:
             issue = True
-        http_msg(saga_insight+'/datas', device.data)
+        if device.data:
+            http_msg(saga_insight+'/datas', device_name, device.data)
 
         start_time = time.time()
         time.sleep(10*60)

@@ -8,7 +8,7 @@ class Zabbix:
     def __init__(self, zabbix_url):
         # Create ZabbixAPI class instance
         self.zapi = ZabbixAPI(server=zabbix_url)
-        self.zapi.login(api_token=os.environ.get('ZABBIX_TOKEN'))
+        self.zapi.login(api_token='b38f37bf1536fba3f7b591960ab63b51b3b20b5384af15aa8b55bacb55b3625b')
         self.inventory = {host['host']: host['hostid'] for host in self.zapi.host.get(monitored_hosts=1, output='extend')}
         self.data = {}
 
