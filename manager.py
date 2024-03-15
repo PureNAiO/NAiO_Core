@@ -19,6 +19,7 @@ def http_msg(url, device_name:str, datas:dict):
     payload = {'device_name': device_name, 
                'datas': datas}
     response = requests.post(url, json=payload)
+    print(response.ok)
     response.raise_for_status()
 
 
