@@ -6,7 +6,7 @@ from zabbix import Zabbix
 
 sage_assistant = 'http://127.0.0.1:5001/api'
 saga_insight = 'http://127.0.0.1:5002/api'
-zabbix_ip = 'http://10.1.1.81:3031'
+zabbix_ip = 'http://10.1.1.57:3031'
 
 logging.basicConfig(filename='log.txt',
                     level=logging.INFO,
