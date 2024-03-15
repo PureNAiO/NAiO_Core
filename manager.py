@@ -33,12 +33,12 @@ def main():
             device.collector_host(device_name, start_time)
             print(device.data)
 
-            #if device.data[if_name] != 1 and issue:
-            if not issue:
+            if device.data[if_name] != 1 and issue:
+            #if not issue:
                 print('G0/22 Fail')
                 issue_data = {'if_name': if_name.split('(')[0],
                               'value': device.data[if_name]}
-                http_msg(sage_assistant+'/datas', device_name, issue_data)
+                #http_msg(sage_assistant+'/datas', device_name, issue_data)
                 issue = False
             elif device.data[if_name] == 1:
                 issue = True
