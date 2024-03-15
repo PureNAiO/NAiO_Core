@@ -26,16 +26,17 @@ def http_msg(url, device_name:str, datas:dict):
 def main():
     issue = True
     device_name = 'GZ Office CoreSW'
-    if_name = 'Interface Gi0/22(): Operational status'
-    start_time = time.time()
+    if_name = 'Interface Vl888()'
     while True:
+        start_time = time.time()
+        time.sleep(1)
         device = Zabbix(zabbix_ip)
         device.collector_host(device_name, start_time)
         print(device.data)
 
         #if device.data[if_name] != 1 and issue:
         if not issue:
-            print('G0/22 Fail')
+            print('Vlan 888 Fail')
             issue_data = {'if_name': if_name.split('(')[0],
                             'value': device.data[if_name]}
             #http_msg(sage_assistant+'/datas', device_name, issue_data)
@@ -44,9 +45,7 @@ def main():
             issue = True
         if device.data:
             http_msg(saga_insight+'/datas', device_name, device.data)
-
-        start_time = time.time()
-        time.sleep(10*60)
+        time.sleep(60)
 
 
 if __name__ == "__main__":

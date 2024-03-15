@@ -20,7 +20,7 @@ class Zabbix:
         for info in history:
             item_id = info['itemid']
             item_name = metrics[item_id]
-            item_value = info['value']
+            item_value = int(info['value'])
             self.data[item_name] = item_value
 
 
