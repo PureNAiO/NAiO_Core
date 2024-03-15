@@ -39,7 +39,7 @@ def main():
             print('Vlan 888 Fail')
             issue_data = {'if_name': if_name.split('(')[0],
                             'value': device.data[if_name]}
-            #http_msg(sage_assistant+'/datas', device_name, issue_data)
+            http_msg(sage_assistant+'/datas', device_name, issue_data)
             issue = False
         else:
             issue = True
