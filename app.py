@@ -34,7 +34,7 @@ def main():
             print(device.data)
 
             #if device.data[if_name] != 1 and issue:
-            if not issue
+            if not issue:
                 print('G0/22 Fail')
                 issue_data = {'if_name': if_name.split('(')[0],
                               'value': device.data[if_name]}
