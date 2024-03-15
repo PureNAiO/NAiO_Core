@@ -27,7 +27,7 @@ def main():
     issue = True
     device_name = 'GZ Office CoreSW'
     if_name = 'Interface Gi0/22(): Operational status'
-    start_time = time.time()
+    start_time = time.time()-3600*24
     while True:
         device = Zabbix(zabbix_ip)
         device.collector_host(device_name, start_time)
