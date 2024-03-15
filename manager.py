@@ -4,9 +4,9 @@ import os
 import logging
 from zabbix import Zabbix
 
-sage_assistant = 'http://10.1.1.57:5001/api'
-saga_insight = 'http://10.1.1.57:5002/api'
-zabbix_ip = 'http://10.1.1.57:3031'
+sage_assistant = 'http://127.0.0.1:5001/api'
+saga_insight = 'http://127.0.0.1:5002/api'
+zabbix_ip = 'http://127.0.0.1:3031'
 
 logging.basicConfig(filename='log.txt',
                     level=logging.INFO,
