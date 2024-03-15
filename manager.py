@@ -32,17 +32,15 @@ def main():
         time.sleep(1)
         device = Zabbix(zabbix_ip)
         device.collector_host(device_name, start_time)
-        print(device.data)
-
-        #if device.data[if_name] != 1 and issue:
-        if not issue:
-            print('Vlan 888 Fail')
-            issue_data = {'if_name': if_name.split('(')[0],
-                            'value': device.data[if_name]}
-            http_msg(sage_assistant+'/datas', device_name, issue_data)
-            issue = False
-        else:
-            issue = True
+        if device.data:
+            if device.data[if_name] != 1 and issue:
+                print('Vlan 888 Fail')
+                issue_data = {'if_name': if_name.split('(')[0],
+                                'value': device.data[if_name]}
+                http_msg(sage_assistant+'/datas', device_name, issue_data)
+                issue = False
+            else:
+                issue = True
         if device.data:
             http_msg(saga_insight+'/datas', device_name, device.data)
         time.sleep(60)
