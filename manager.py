@@ -39,7 +39,7 @@ def main():
                                 'value': device.data[if_name]}
                 http_msg(sage_assistant+'/datas', device_name, issue_data)
                 issue = False
-            else:
+            elif device.data[if_name] == 1:
                 issue = True
         if device.data:
             http_msg(saga_insight+'/datas', device_name, device.data)
