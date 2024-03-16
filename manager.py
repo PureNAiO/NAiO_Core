@@ -1,5 +1,4 @@
 import requests
-import time
 import os
 import logging
 from zabbix import Zabbix
@@ -19,30 +18,31 @@ def http_msg(url, device_name:str, datas:dict):
     payload = {'device_name': device_name, 
                'datas': datas}
     response = requests.post(url, json=payload)
-    print(response.ok)
+    #print(response.ok)
     response.raise_for_status()
 
 
 def main():
     issue = True
     device_name = 'GZ Office CoreSW'
-    if_name = 'Interface Vl888()'
+    if_name = 'Interface Vl888(): Operational status'
     while True:
-        start_time = time.time()
-        time.sleep(1)
         device = Zabbix(zabbix_ip)
-        device.collector_host(device_name, start_time)
+        device.collector_host(device_name)
+        #print(device.data)
         if device.data:
             if device.data[if_name] != 1 and issue:
                 print('Vlan 888 Fail')
                 issue_data = {'if_name': if_name.split('(')[0],
                                 'value': device.data[if_name]}
                 http_msg(sage_assistant+'/datas', device_name, issue_data)
+                logging.info('Send to Assistant')
                 issue = False
             elif device.data[if_name] == 1:
                 issue = True
         if device.data:
             http_msg(saga_insight+'/datas', device_name, device.data)
+            logging.info('Send to Assistant')
         time.sleep(60)
 
 

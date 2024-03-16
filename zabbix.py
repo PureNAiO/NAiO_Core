@@ -12,16 +12,18 @@ class Zabbix:
         self.inventory = {host['host']: host['hostid'] for host in self.zapi.host.get(monitored_hosts=1, output='extend')}
         self.data = {}
 
-    def collector_host(self, device_name, start_time):
+    def collector_host(self, device_name):
         host_id = self.inventory[device_name]
         result = self.zapi.item.get(hostids=host_id)
         metrics: dict = {info['itemid']: info['name'] for info in result}
-        history = self.zapi.history.get(hostids=host_id, itemids=list(metrics.keys()), time_from=int(start_time))
-        for info in history:
+        item_list = self.zapi.item.get(hostids=host_id, itemids=list(metrics.keys()))
+        for info in item_list:
             item_id = info['itemid']
             item_name = metrics[item_id]
-            item_value = int(info['value'])
-            self.data[item_name] = item_value
+            item_lastvalue = info['lastvalue']
+            if item_lastvalue.isdigit():
+                value = int(info['lastvalue'])
+                self.data[item_name] = value
 
 
 
