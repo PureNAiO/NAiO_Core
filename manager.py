@@ -35,7 +35,7 @@ def main():
             if device.data[if_name] != 1 and issue:
                 print('Vlan 888 Fail')
                 issue_data = {'if_name': if_name.split('(')[0],
-                                'value': device.data[if_name]}
+                              'value': device.data[if_name]}
                 http_msg(sage_assistant+'/datas', device_name, issue_data)
                 logging.info('Send to Assistant')
                 issue = False
@@ -43,7 +43,7 @@ def main():
                 issue = True
         if device.data:
             http_msg(saga_insight+'/datas', device_name, device.data)
-            logging.info('Send to Assistant')
+            logging.info('Send to Insight')
         time.sleep(60)
 
 
