@@ -5,7 +5,7 @@ import time
 from zabbix import Zabbix
 
 sage_assistant = 'http://127.0.0.1:5001/api'
-saga_insight = 'http://183.6.42.206:5002/api'
+saga_insight = 'http://183.6.42.206:3034/api'
 zabbix_ip = 'http://127.0.0.1:3031'
 
 logging.basicConfig(filename='log.txt',
