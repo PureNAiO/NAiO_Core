@@ -42,8 +42,8 @@ def main():
     issue = True
     #device_name = 'GZ Office CoreSW'
     if_name = 'Interface Vl888(): Operational status'
-    try:
-        while True:
+    while True:
+        try:
             device = Zabbix(zabbix_ip)
             for device_name in device.inventory.keys():
                 device.collector_host(device_name)
@@ -53,9 +53,10 @@ def main():
                 if device.data and open_data_upload:
                     http_msg(saga_insight+'/datas', device_name, device.data)
                     logging.info('Send to Insight')
-            time.sleep(60)
-    except:
-        pass
+            
+        except Exception as e:
+            print(e)
+        time.sleep(120)
 
 
 if __name__ == "__main__":
